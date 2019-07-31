@@ -25,9 +25,9 @@ val appModules = module {
     for same reason as above */
     single {
         createWebService<CatApi>(
-            OkHttpClient(),
-            RxJava2CallAdapterFactory.create(),
-            CAT_API_BASE_URL
+            okHttpClient = get(),
+            factory = RxJava2CallAdapterFactory.create(),
+            baseUrl = CAT_API_BASE_URL
         )
     }
     // Tells Koin how to create an instance of CatRepository
