@@ -19,6 +19,10 @@ class MainViewModel(private val catRepository: CatRepository) : ViewModel(), Cor
     val catsList = MutableLiveData<List<Cat>>()
     val showError = SingleLiveEvent<String>()
 
+    init {
+        loadCats()
+    }
+
     fun loadCats() {
         // Show progressBar during the operation on the MAIN (default) thread
         showLoading.value = true

@@ -46,7 +46,5 @@ class MainActivity : AppCompatActivity() {
         viewModel.showError.observe(this, Observer { showError ->
             Toast.makeText(this, showError, Toast.LENGTH_SHORT).show()
         })
-        // The observers are set, we can now ask API to load a data list
-        viewModel.loadCats()
     }
 }
