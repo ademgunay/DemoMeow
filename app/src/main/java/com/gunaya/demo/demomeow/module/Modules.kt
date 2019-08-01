@@ -18,14 +18,10 @@ import java.util.concurrent.TimeUnit
 const val CAT_API_BASE_URL = "https://api.thecatapi.com/v1/"
 
 val appModules = module {
-    /* Our HTTP client instance as a singleton (single)
-    We only need a single instance of the HTTP client */
-    single { createHttpClient() }
-    /* The Retrofit service using the HTTP client instance as a singleton
-    for same reason as above */
+    // The Retrofit service using our custom HTTP client instance as a singleton
     single {
         createWebService<CatApi>(
-            okHttpClient = get(),
+            okHttpClient = createHttpClient(),
             factory = RxJava2CallAdapterFactory.create(),
             baseUrl = CAT_API_BASE_URL
         )
@@ -36,7 +32,7 @@ val appModules = module {
     viewModel { MainViewModel(catRepository = get()) }
 }
 
-/* Returns an OkHttpClient instance used for building Retrofit service */
+/* Returns a custom OkHttpClient instance with interceptor. Used for building Retrofit service */
 fun createHttpClient(): OkHttpClient {
     val client = OkHttpClient.Builder()
     client.readTimeout(5 * 60, TimeUnit.SECONDS)
