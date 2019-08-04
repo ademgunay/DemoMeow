@@ -1,6 +1,6 @@
 package com.gunaya.demo.demomeow.data.repositories
 
-import com.gunaya.demo.demomeow.UseCaseResult
+import com.gunaya.demo.demomeow.utils.UseCaseResult
 import com.gunaya.demo.demomeow.data.entities.Cat
 import com.gunaya.demo.demomeow.data.remote.CatApi
 

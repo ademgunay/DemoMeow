@@ -4,7 +4,7 @@ import com.google.gson.GsonBuilder
 import com.gunaya.demo.demomeow.data.remote.CatApi
 import com.gunaya.demo.demomeow.data.repositories.CatRepository
 import com.gunaya.demo.demomeow.data.repositories.CatRepositoryImpl
-import com.gunaya.demo.demomeow.presentation.MainViewModel
+import com.gunaya.demo.demomeow.presentation.main.MainViewModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import org.koin.android.viewmodel.dsl.viewModel

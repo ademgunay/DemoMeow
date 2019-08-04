@@ -1,4 +1,4 @@
-package com.gunaya.demo.demomeow
+package com.gunaya.demo.demomeow.utils
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData

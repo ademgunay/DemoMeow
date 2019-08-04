@@ -12,12 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.MainActivity">
+        <activity android:name=".presentation.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Adding Detail activity with Main as a parent to display back arrow in ActionBar -->
+        <activity
+            android:name=".presentation.detail.DetailActivity"
+            android:parentActivityName=".presentation.main.MainActivity" />
     </application>
 
 </manifest>

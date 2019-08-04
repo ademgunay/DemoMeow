@@ -1,4 +1,4 @@
-package com.gunaya.demo.demomeow.presentation
+package com.gunaya.demo.demomeow.presentation.main
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -7,7 +7,8 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.gunaya.demo.demomeow.R
-import com.gunaya.demo.demomeow.presentation.adapter.CatAdapter
+import com.gunaya.demo.demomeow.presentation.detail.DetailActivity
+import com.gunaya.demo.demomeow.presentation.main.adapter.CatAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -22,11 +23,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // Instantiate our custom Adapter
-        catAdapter = CatAdapter()
+        // The click listener for displaying a cat image in detail activity
+        val onCatClicked: (imageUrl: String) -> Unit = { imageUrl ->
+            viewModel.catClicked(imageUrl)
+        }
+        // Instantiate our custom Adapter with the click listener
+        catAdapter = CatAdapter(onCatClicked)
         catsRecyclerView.apply {
             // Displaying data in a Grid design
-            layoutManager = GridLayoutManager(this@MainActivity, NUMBER_OF_COLUMN)
+            layoutManager = GridLayoutManager(
+                this@MainActivity,
+                NUMBER_OF_COLUMN
+            )
             adapter = catAdapter
         }
         // Initiate the observers on viewModel fields and then starts the API request
@@ -45,6 +53,10 @@ class MainActivity : AppCompatActivity() {
         // Observe showError value and display the error message as a Toast
         viewModel.showError.observe(this, Observer { showError ->
             Toast.makeText(this, showError, Toast.LENGTH_SHORT).show()
+        })
+        // Navigate to detail view with the image's url to display
+        viewModel.navigateToDetail.observe(this, Observer { imageUrl ->
+            if (imageUrl != null) startActivity(DetailActivity.getStartIntent(this, imageUrl))
         })
         // The observers are set, we can now ask API to load a data list
         viewModel.loadCats()
