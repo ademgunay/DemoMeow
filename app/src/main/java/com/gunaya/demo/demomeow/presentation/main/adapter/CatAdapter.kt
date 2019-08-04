@@ -1,4 +1,4 @@
-package com.gunaya.demo.demomeow.presentation.adapter
+package com.gunaya.demo.demomeow.presentation.main.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,7 +10,8 @@ import com.gunaya.demo.demomeow.data.entities.Cat
 import kotlinx.android.synthetic.main.item_cat.view.*
 import kotlin.properties.Delegates
 
-class CatAdapter : RecyclerView.Adapter<CatAdapter.CatViewHolder>() {
+class CatAdapter(private val onCatClicked: (imageUrl: String) -> Unit) :
+    RecyclerView.Adapter<CatAdapter.CatViewHolder>() {
 
     // Our data list is going to be notified when we assign a new list of data to it
     private var catsList: List<Cat> by Delegates.observable(emptyList()) { _, _, _ ->
@@ -20,7 +21,14 @@ class CatAdapter : RecyclerView.Adapter<CatAdapter.CatViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_cat, parent, false)
-        return CatViewHolder(view)
+        val holder = CatViewHolder(view)
+        // Add the click listener on the imageView and retrieve the proper image url
+        holder.itemView.itemCatImageView.setOnClickListener {
+            if (holder.adapterPosition != RecyclerView.NO_POSITION) {
+                onCatClicked.invoke(catsList[holder.adapterPosition].imageUrl)
+            }
+        }
+        return holder
     }
 
     override fun getItemCount(): Int = catsList.size
