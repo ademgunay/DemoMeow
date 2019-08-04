@@ -17,7 +17,12 @@ class MainViewModel(private val catRepository: CatRepository) : BaseViewModel() 
     val showError = SingleLiveEvent<String>()
     val navigateToDetail = SingleLiveEvent<String>()
 
-    fun loadCats() {
+    init {
+        // Load cats when this ViewModel is instantiated.
+        loadCats()
+    }
+
+    private fun loadCats() {
         // Show progressBar during the operation on the MAIN (default) thread
         showLoading.value = true
         // launch the Coroutine
