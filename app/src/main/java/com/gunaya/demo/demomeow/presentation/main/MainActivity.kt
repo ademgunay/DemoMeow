@@ -58,7 +58,5 @@ class MainActivity : AppCompatActivity() {
         viewModel.navigateToDetail.observe(this, Observer { imageUrl ->
             if (imageUrl != null) startActivity(DetailActivity.getStartIntent(this, imageUrl))
         })
-        // The observers are set, we can now ask API to load a data list
-        viewModel.loadCats()
     }
 }
